@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Фінансовий Трекер</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1976D2">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="header">
+      <h1 class="header__title">Фінансовий Трекер</h1>
+      <nav class="month-nav">
+        <button class="month-nav__btn" id="month-prev" aria-label="Попередній місяць">&larr;</button>
+        <span class="month-nav__label" id="month-label"></span>
+        <button class="month-nav__btn" id="month-next" aria-label="Наступний місяць">&rarr;</button>
+      </nav>
+    </header>
+
+    <div class="tabs">
+      <button class="tabs__btn tabs__btn--active" data-tab="dashboard">Бюджет</button>
+      <button class="tabs__btn" data-tab="statistics">Статистика</button>
+    </div>
+
+    <main>
+      <section class="view view--active" id="view-dashboard"></section>
+      <section class="view" id="view-statistics"></section>
+    </main>
+  </div>
+
+<script type="module" src="js/app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
+</body>
+</html>
