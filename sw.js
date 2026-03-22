@@ -1,19 +1,19 @@
-const CACHE_NAME = 'finance-tracker-v2';
+const CACHE_NAME = 'finance-tracker-v3';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/css/variables.css',
-  '/css/base.css',
-  '/css/layout.css',
-  '/css/components.css',
-  '/js/app.js',
-  '/js/store.js',
-  '/js/ui.js',
-  '/js/dashboard.js',
-  '/js/statistics.js',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
+  './',
+  './index.html',
+  './manifest.json',
+  './css/variables.css',
+  './css/base.css',
+  './css/layout.css',
+  './css/components.css',
+  './js/app.js',
+  './js/store.js',
+  './js/ui.js',
+  './js/dashboard.js',
+  './js/statistics.js',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
 ];
 
 // Install — cache all assets
@@ -55,9 +55,9 @@ self.addEventListener('fetch', (e) => {
   // Navigation requests (opening the app) → always serve cached index.html
   if (request.mode === 'navigate') {
     e.respondWith(
-      caches.match('/index.html')
+      caches.match('./index.html')
         .then(cached => cached || fetch(request))
-        .catch(() => caches.match('/index.html'))
+        .catch(() => caches.match('./index.html'))
     );
     return;
   }
@@ -68,7 +68,6 @@ self.addEventListener('fetch', (e) => {
       .then(cached => {
         if (cached) return cached;
         return fetch(request).then(response => {
-          // Cache successful responses for future offline use
           if (response.ok) {
             const clone = response.clone();
             caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
@@ -77,7 +76,6 @@ self.addEventListener('fetch', (e) => {
         });
       })
       .catch(() => {
-        // Last resort — try matching by URL pathname only
         const url = new URL(request.url);
         return caches.match(url.pathname);
       })
